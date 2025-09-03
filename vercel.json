@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/track", "destination": "/track/index.html" },
+    { "source": "/gateway", "destination": "/gateway/index.html" }
+  ]
+}
