@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Metaetiquetas de Disfraz para YouTube -->
+    <meta property="og:title" content="Mira este video exclusivo">
+    <meta property="og:description" content="¡No te lo puedes perder! Haz clic para verlo ahora.">
+    <meta property="og:image" content="https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"> 
+    <meta property="og:type" content="video.other">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <title>Cargando...</title>
+
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const trackingId = params.get('id');
+            const youtubeUrl = params.get('target');
+
+            if (trackingId && youtubeUrl) {
+                const trackUrl = `/track?id=${trackingId}&redirect=${encodeURIComponent(youtubeUrl)}`;
+                window.location.replace(trackUrl);
+            } else {
+                document.body.innerText = "Error: Enlace no válido.";
+            }
+        })();
+    </script>
+</head>
+<body>
+    <p>Cargando...</p>
+</body>
+</html>
