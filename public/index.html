@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        input[type="text"] { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        #linkContainer { margin-top: 20px; word-wrap: break-word; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generador de Enlaces</h1>
+        <input type="text" id="youtubeUrl" placeholder="Pega la URL del video de YouTube de destino">
+        <button id="generateLinkBtn">Generar Enlace Disfrazado</button>
+        <div id="linkContainer"></div>
+    </div>
+
+    <script>
+        document.getElementById('generateLinkBtn').addEventListener('click', async () => {
+            const targetYoutubeUrl = document.getElementById('youtubeUrl').value;
+            if (!targetYoutubeUrl.startsWith('https://')) {
+                alert('Por favor, pega una URL de YouTube válida.');
+                return;
+            }
+
+            const response = await fetch('/api/generate-link');
+            const data = await response.json();
+            
+            const gatewayLink = `${window.location.origin}/gateway?id=${data.trackingId}&target=${encodeURIComponent(targetYoutubeUrl)}`;
+            
+            const linkContainer = document.getElementById('linkContainer');
+            linkContainer.innerHTML = `<p><strong>Copia y envía este enlace:</strong></p><input type="text" value="${gatewayLink}" readonly onclick="this.select()">`;
+        });
+    </script>
+</body>
+</html>
